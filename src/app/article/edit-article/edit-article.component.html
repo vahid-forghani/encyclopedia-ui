@@ -1,0 +1,18 @@
+<h3>Id</h3>
+<span id="id">{{ articleForm.id.value }}</span>
+<h3>Title</h3>
+<input id="title" [formControl]="articleForm.title" type="text" pInputText />
+<h3>Content</h3>
+<textarea
+  rows="5"
+  cols="30"
+  [formControl]="articleForm.content"
+  pInputTextarea
+  [autoResize]="true">
+</textarea>
+<p-button
+  label="Save"
+  icon="pi pi-check"
+  iconPos="right"
+  (onClick)="save()">
+</p-button>

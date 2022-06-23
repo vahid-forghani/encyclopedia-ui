@@ -1,0 +1,21 @@
+<p-button
+  *ngIf="auth.isLogedIn()"
+  label="Add new article"
+  icon="pi pi-plus"
+  iconPos="right"
+  routerLink="/articles/edit/new">
+</p-button>
+<div class="article" *ngFor="let article of articles">
+  <p-card [header]="article.title">
+    <ng-template pTemplate="header">
+
+    </ng-template>
+    {{article.content}}
+    <ng-template pTemplate="footer">
+      <p-button label="View" [routerLink]="'/articles/view/' + article.id" icon="pi pi-angle-double-right" iconPos="right"></p-button>
+      <p-button *ngIf="auth.isLogedIn()" label="Edit" [routerLink]="'/articles/edit/' + article.id" icon="pi pi-pencil" iconPos="right"></p-button>
+      <p-button *ngIf="auth.isAdmin()" label="Delete" (onClick)="delete(article.id)" icon="pi pi-trash" iconPos="right"></p-button>
+    </ng-template>
+  </p-card>
+</div>
+
