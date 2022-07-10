@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit {
 
   onRowEditSave(user: User): void {
     user.roles = user.roles.toString().split(',');
-    console.log(user);
     this.userService.save(user).subscribe();
     delete this.clonedUsers[user.id];
   }
