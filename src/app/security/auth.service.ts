@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return this.authentication?.authorities?.find(authority => authority.authority == 'ROLE_ADMIN')?.authority != null;
+    return this.authentication?.authorities?.find(authority => authority.authority == 'ADMIN')?.authority != null;
   }
 
 }

@@ -1,10 +1,13 @@
+<button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="newUser()" ></button>
 <p-table [value]="users" dataKey="id" editMode="row" responsiveLayout="scroll">
   <ng-template pTemplate="header">
     <tr>
       <th>Id</th>
       <th>Name</th>
       <th>Username</th>
-      <th style="width: 8rem"></th>
+      <th>Password</th>
+      <th>Roles</th>
+      <th *ngIf="auth.isAdmin()" style="width: 8rem"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
@@ -39,37 +42,43 @@
           </ng-template>
         </p-cellEditor>
       </td>
-      <td style="text-align: center">
-        <button
-          *ngIf="!editing"
-          pButton
-          pRipple
-          type="button"
-          pInitEditableRow
-          icon="pi pi-pencil"
-          (click)="onRowEditInit(user)"
-          class="p-button-rounded p-button-text"
-        ></button>
-        <button
-          *ngIf="editing"
-          pButton
-          pRipple
-          type="button"
-          pSaveEditableRow
-          icon="pi pi-check"
-          (click)="onRowEditSave(user)"
-          class="p-button-rounded p-button-text p-button-success mr-2"
-        ></button>
-        <button
-          *ngIf="editing"
-          pButton
-          pRipple
-          type="button"
-          pCancelEditableRow
-          icon="pi pi-times"
-          (click)="onRowEditCancel(user, ri)"
-          class="p-button-rounded p-button-text p-button-danger"
-        ></button>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.password" required />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.password }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.roles" required />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.roles }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td *ngIf="auth.isAdmin()" style="text-align: center">
+        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow
+          icon="pi pi-pencil" (click)="onRowEditInit(user)"
+          class="p-button-rounded p-button-text">
+        </button>
+        <button *ngIf="!editing" pButton pRipple type="button"
+          icon="pi pi-trash" (click)="onRowDelete(user)"
+          class="p-button-rounded p-button-text p-button-danger">
+        </button>
+        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow
+          icon="pi pi-check" (click)="onRowEditSave(user)"
+          class="p-button-rounded p-button-text p-button-success mr-2">
+        </button>
+        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow
+          icon="pi pi-times" (click)="onRowEditCancel(user, ri)"
+          class="p-button-rounded p-button-text p-button-danger">
+        </button>
       </td>
     </tr>
   </ng-template>
